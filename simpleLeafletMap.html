@@ -1,0 +1,56 @@
+<template>
+  <lightning-card title="위치 검색 지도" icon-name="utility:location">
+      <div class="slds-p-horizontal_medium">
+          <!-- 검색 입력 영역 -->
+          <div class="slds-form-element slds-m-bottom_medium">
+              <label class="slds-form-element__label" for="location-input">
+                  위치 입력 (예: 서울시청, 강남역)
+              </label>
+              <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                  <input 
+                      type="text" 
+                      id="location-input"
+                      class="slds-input" 
+                      placeholder="위치를 입력하세요"
+                      value={searchLocation}
+                      onchange={handleLocationChange}
+                      onkeyup={handleKeyPress}
+                  />
+                  <button 
+                      class="slds-input__icon slds-input__icon_right slds-button slds-button_icon"
+                      onclick={searchLocation}
+                      disabled={isLoading}
+                  >
+                      <lightning-icon icon-name="utility:search" size="x-small"></lightning-icon>
+                  </button>
+              </div>
+          </div>
+
+          <!-- 로딩 스피너 -->
+          <div if:true={isLoading} class="slds-text-align_center slds-m-bottom_medium">
+              <lightning-spinner alternative-text="검색 중..." size="small"></lightning-spinner>
+          </div>
+
+          <!-- 오류 메시지 -->
+          <div if:true={errorMessage} class="slds-m-bottom_medium">
+              <div class="slds-notify slds-notify_alert slds-alert_error">
+                  <span class="slds-assistive-text">오류</span>
+                  <h2>{errorMessage}</h2>
+              </div>
+          </div>
+
+          <!-- 지도 영역 -->
+          <div class="map-container">
+              <div class="map-div" lwc:dom="manual"></div>
+          </div>
+
+          <!-- 현재 위치 정보 표시 -->
+          <div if:true={currentMarkerInfo} class="slds-m-top_medium">
+              <div class="slds-box slds-box_small">
+                  <p><strong>위치:</strong> {currentMarkerInfo.name}</p>
+                  <p><strong>좌표:</strong> {currentMarkerInfo.lat}, {currentMarkerInfo.lng}</p>
+              </div>
+          </div>
+      </div>
+  </lightning-card>
+</template>
