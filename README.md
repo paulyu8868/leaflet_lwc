@@ -1,4 +1,5 @@
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/f0d475d6-b532-4b03-94e3-780c38364cd7)
+
 
 
 # 필요한 세팅
